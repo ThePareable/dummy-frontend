@@ -20,7 +20,6 @@ export const ProfileHeader = () => {
         register: registerProfile,
         handleSubmit: handleProfileSubmit,
         formState: { errors: profileErrors },
-        watch: watchProfile,
         reset: resetProfile,
     } = useForm({
         defaultValues: {

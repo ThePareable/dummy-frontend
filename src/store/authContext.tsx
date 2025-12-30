@@ -1,5 +1,5 @@
 import { createContext, useReducer, useCallback, useEffect, type ReactNode } from 'react';
-import type { User, AuthContextType, LoginCredentials } from '../types';
+import type { User, AuthContextType, LoginCredentials, SignupCredentials } from '../types';
 import { authService } from '../services/authService';
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -140,7 +140,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         dispatch({ type: 'LOGIN_START' });
         try {
             await authService.updatePassword(currentPassword, newPassword);
-            dispatch({ type: 'LOGIN_ERROR', payload: null });
+            dispatch({ type: 'LOGIN_ERROR', payload: '' });
         } catch (error: any) {
             const errorMessage = error.response?.data?.message || 'Şifre değiştirilemedi.';
             dispatch({ type: 'LOGIN_ERROR', payload: errorMessage });
