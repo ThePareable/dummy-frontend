@@ -21,7 +21,7 @@ apiClient.interceptors.request.use((config) => {
 export const authService = {
     login: async (email: string, password: string) => {
         try {
-            const response = await apiClient.post('/auth/login', { email, password });
+            const response = await apiClient.post('/login', { email, password });
             if (response.data.token) {
                 localStorage.setItem('authToken', response.data.token);
                 localStorage.setItem('user', JSON.stringify(response.data.user));
@@ -34,7 +34,7 @@ export const authService = {
 
     signup: async (email: string, password: string, name: string) => {
         try {
-            const response = await apiClient.post('/auth/signup', { email, password, name });
+            const response = await apiClient.post('/create', { email, password, name });
             if (response.data.token) {
                 localStorage.setItem('authToken', response.data.token);
                 localStorage.setItem('user', JSON.stringify(response.data.user));
@@ -51,12 +51,15 @@ export const authService = {
     },
 
     getProfile: async () => {
-        const response = await apiClient.get('/auth/profile');
+        const response = await apiClient.get('/user');
+        if (response.data.user) {
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+        }
         return response.data;
     },
 
     updateProfileImage: async (formData: FormData) => {
-        const response = await apiClient.post('/auth/upload-profile-image', formData, {
+        const response = await apiClient.patch('/change/picture', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
@@ -68,7 +71,7 @@ export const authService = {
     },
 
     updateProfile: async (name: string) => {
-        const response = await apiClient.put('/auth/profile', { name });
+        const response = await apiClient.patch('/change/name', { name });
         if (response.data.user) {
             localStorage.setItem('user', JSON.stringify(response.data.user));
         }
@@ -76,10 +79,24 @@ export const authService = {
     },
 
     updatePassword: async (currentPassword: string, newPassword: string) => {
-        const response = await apiClient.post('/auth/change-password', {
+        const response = await apiClient.patch('/change/password', {
             currentPassword,
             newPassword,
         });
         return response.data;
+    },
+
+    deleteProfilePicture: async () => {
+        const response = await apiClient.delete('/removepicture');
+        if (response.data.user) {
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+        }
+        return response.data;
+    },
+
+    deleteUser: async () => {
+        await apiClient.delete('/remove');
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('user');
     },
 };
