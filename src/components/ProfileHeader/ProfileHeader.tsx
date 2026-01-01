@@ -23,7 +23,7 @@ export const ProfileHeader = () => {
         reset: resetProfile,
     } = useForm({
         defaultValues: {
-            name: user?.name || '',
+            name: user?.user_name || '',
         },
     });
 
@@ -225,12 +225,6 @@ export const ProfileHeader = () => {
                                     )}
                                 </div>
 
-                                <div className={styles.formGroup}>
-                                    <label className={styles.label}>Email</label>
-                                    <p className={styles.staticValue}>{user?.email}</p>
-                                    <small className={styles.hint}>Email değiştirilemez</small>
-                                </div>
-
                                 {error && <div className={styles.errorAlert}>{error}</div>}
 
                                 <div className={styles.formActions}>
@@ -270,12 +264,7 @@ export const ProfileHeader = () => {
 
                                 <div className={styles.infoGroup}>
                                     <label className={styles.infoLabel}>Ad Soyad</label>
-                                    <p className={styles.infoValue}>{user?.name || 'N/A'}</p>
-                                </div>
-
-                                <div className={styles.infoGroup}>
-                                    <label className={styles.infoLabel}>Email</label>
-                                    <p className={styles.infoValue}>{user?.email || 'N/A'}</p>
+                                    <p className={styles.infoValue}>{user?.user_name || 'N/A'}</p>
                                 </div>
 
                                 <div className={styles.infoGroup}>
