@@ -20,9 +20,9 @@ export const LoginForm = () => {
         }
     };
 
-    const email = watch('email');
+    const user_name = watch('user_name');
     const password = watch('password');
-    const isFormValid = email && password && !errors.email && !errors.password;
+    const isFormValid = user_name && password && !errors.user_name && !errors.password;
 
     return (
         <div className={styles.container}>
@@ -35,21 +35,21 @@ export const LoginForm = () => {
 
                 <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
                     <div className={styles.formGroup}>
-                        <label htmlFor="email" className={styles.label}>Email Address</label>
+                        <label htmlFor="user_name" className={styles.label}>Ad Soyad</label>
                         <input
-                            id="email"
-                            type="email"
-                            placeholder="you@example.com"
-                            className={`${styles.input} ${errors.email ? styles.inputError : ''}`}
-                            {...register('email', {
-                                required: 'Email is required',
-                                pattern: {
-                                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                                    message: 'Please enter a valid email',
+                            id="user_name"
+                            type="text"
+                            placeholder="Adınız ve soyadınız"
+                            className={`${styles.input} ${errors.user_name ? styles.inputError : ''}`}
+                            {...register('user_name', {
+                                required: 'Ad soyad gereklidir',
+                                minLength: {
+                                    value: 3,
+                                    message: 'Ad en az 3 karakter olmalı',
                                 },
                             })}
                         />
-                        {errors.email && <span className={styles.error}>{errors.email.message}</span>}
+                        {errors.user_name && <span className={styles.error}>{errors.user_name.message}</span>}
                     </div>
 
                     <div className={styles.formGroup}>
@@ -80,10 +80,6 @@ export const LoginForm = () => {
                         {isLoading ? 'Logging in...' : 'Login'}
                     </button>
                 </form>
-
-                <p className={styles.footer}>
-                    Demo credentials: test@example.com / password123
-                </p>
 
                 <p className={styles.footer}>
                     Hesabınız yok mu?{' '}

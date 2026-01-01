@@ -1,20 +1,18 @@
 export interface User {
     id: string;
-    email: string;
-    name: string;
+    user_name: string;
     profileImage?: string;
 }
 
 export interface LoginCredentials {
-    email: string;
+    user_name: string;
     password: string;
 }
 
 export interface SignupCredentials {
-    email: string;
+    user_name: string;
     password: string;
     confirmPassword: string;
-    name: string;
 }
 
 export interface AuthContextType {

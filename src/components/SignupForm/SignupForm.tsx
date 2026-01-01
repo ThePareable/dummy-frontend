@@ -31,18 +31,15 @@ export const SignupForm = () => {
 
     const password = watch('password');
     const confirmPassword = watch('confirmPassword');
-    const email = watch('email');
-    const name = watch('name');
+    const user_name = watch('user_name');
 
     const isFormValid =
-        email &&
+        user_name &&
         password &&
         confirmPassword &&
-        name &&
-        !errors.email &&
+        !errors.user_name &&
         !errors.password &&
         !errors.confirmPassword &&
-        !errors.name &&
         password === confirmPassword;
 
     return (
@@ -56,43 +53,23 @@ export const SignupForm = () => {
 
                 <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
                     <div className={styles.formGroup}>
-                        <label htmlFor="name" className={styles.label}>
+                        <label htmlFor="user_name" className={styles.label}>
                             Ad Soyad
                         </label>
                         <input
-                            id="name"
+                            id="user_name"
                             type="text"
                             placeholder="Adınız ve soyadınız"
-                            className={`${styles.input} ${errors.name ? styles.inputError : ''}`}
-                            {...register('name', {
+                            className={`${styles.input} ${errors.user_name ? styles.inputError : ''}`}
+                            {...register('user_name', {
                                 required: 'Ad soyad gereklidir',
                                 minLength: {
-                                    value: 2,
-                                    message: 'Ad en az 2 karakter olmalı',
+                                    value: 3,
+                                    message: 'Ad en az 3 karakter olmalı',
                                 },
                             })}
                         />
-                        {errors.name && <span className={styles.error}>{errors.name.message}</span>}
-                    </div>
-
-                    <div className={styles.formGroup}>
-                        <label htmlFor="email" className={styles.label}>
-                            Email Adresi
-                        </label>
-                        <input
-                            id="email"
-                            type="email"
-                            placeholder="you@example.com"
-                            className={`${styles.input} ${errors.email ? styles.inputError : ''}`}
-                            {...register('email', {
-                                required: 'Email gereklidir',
-                                pattern: {
-                                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                                    message: 'Lütfen geçerli bir email girin',
-                                },
-                            })}
-                        />
-                        {errors.email && <span className={styles.error}>{errors.email.message}</span>}
+                        {errors.user_name && <span className={styles.error}>{errors.user_name.message}</span>}
                     </div>
 
                     <div className={styles.formGroup}>

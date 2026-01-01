@@ -19,9 +19,9 @@ apiClient.interceptors.request.use((config) => {
 });
 
 export const authService = {
-    login: async (email: string, password: string) => {
+    login: async (user_name: string, password: string) => {
         try {
-            const response = await apiClient.post('/login', { email, password });
+            const response = await apiClient.post('/login', { user_name, password });
             if (response.data.token) {
                 localStorage.setItem('authToken', response.data.token);
                 localStorage.setItem('user', JSON.stringify(response.data.user));
@@ -32,9 +32,9 @@ export const authService = {
         }
     },
 
-    signup: async (email: string, password: string, name: string) => {
+    signup: async (user_name: string, password: string) => {
         try {
-            const response = await apiClient.post('/create', { email, password, name });
+            const response = await apiClient.post('/create', { user_name, password });
             if (response.data.token) {
                 localStorage.setItem('authToken', response.data.token);
                 localStorage.setItem('user', JSON.stringify(response.data.user));

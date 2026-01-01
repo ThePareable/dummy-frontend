@@ -94,7 +94,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const login = useCallback(async (credentials: LoginCredentials) => {
         dispatch({ type: 'LOGIN_START' });
         try {
-            const data = await authService.login(credentials.email, credentials.password);
+            const data = await authService.login(credentials.user_name, credentials.password);
             dispatch({ type: 'LOGIN_SUCCESS', payload: data.user });
         } catch (error: any) {
             const errorMessage = error.response?.data?.message || 'Login failed. Please try again.';
@@ -106,10 +106,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const signup = useCallback(async (credentials: SignupCredentials) => {
         dispatch({ type: 'LOGIN_START' });
         try {
-            const data = await authService.signup(credentials.email, credentials.password, credentials.name);
+            const data = await authService.signup(credentials.user_name, credentials.password);
             dispatch({ type: 'LOGIN_SUCCESS', payload: data.user });
         } catch (error: any) {
-            const errorMessage = error.response?.data?.message || 'Kayıt başarısız. Lütfen tekrar deneyin.';
+            const errorMessage = error.response?.data?.message || 'Kayıt başarısız. Lütfen tekrar deneyin.'
             dispatch({ type: 'LOGIN_ERROR', payload: errorMessage });
             throw error;
         }
